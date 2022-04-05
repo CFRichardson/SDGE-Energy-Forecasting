@@ -5,7 +5,7 @@
   },
   "nodes": [
     {
-      "node_id": "9b782a31-99a0-46cc-bdf9-8530a0a8d6df",
+      "node_id": "52fc189d-64fb-492e-ab9a-5ed8dd6d7c5f",
       "type": "SOURCE",
       "operator": "sagemaker.s3_source_0.1",
       "parameters": {
@@ -16,7 +16,7 @@
           "description": null,
           "s3ExecutionContext": {
             "__typename": "S3ExecutionContext",
-            "s3Uri": "s3://sagemaker-studio-574641942871-ho0wjd2rwz/Cleaned Data/census_pop.parquet.gzip",
+            "s3Uri": "s3://sagemaker-us-east-1-651000550833/Clean_Data/census_pop.parquet.gzip",
             "s3ContentType": "parquet",
             "s3HasHeader": true,
             "s3FieldDelimiter": ",",
@@ -37,7 +37,7 @@
       ]
     },
     {
-      "node_id": "0b01b9b1-3564-41a4-9fd7-a47669a0e6a9",
+      "node_id": "aa41c53e-62be-4586-a734-428a20cdc316",
       "type": "TRANSFORM",
       "operator": "sagemaker.spark.infer_and_cast_type_0.1",
       "parameters": {},
@@ -47,14 +47,13 @@
           "Zip": "long",
           "Est": "long",
           "MOE": "long",
-          "Year": "long",
-          "__index_level_0__": "long"
+          "Year": "long"
         }
       },
       "inputs": [
         {
           "name": "default",
-          "node_id": "9b782a31-99a0-46cc-bdf9-8530a0a8d6df",
+          "node_id": "52fc189d-64fb-492e-ab9a-5ed8dd6d7c5f",
           "output_name": "default"
         }
       ],
@@ -65,44 +64,18 @@
       ]
     },
     {
-      "node_id": "3fbdb656-6b6a-4557-8b87-772cc9fdec90",
-      "type": "TRANSFORM",
-      "operator": "sagemaker.spark.manage_columns_0.1",
-      "parameters": {
-        "operator": "Drop column",
-        "drop_column_parameters": {
-          "column_to_drop": [
-            "__index_level_0__",
-            "MOE"
-          ]
-        }
-      },
-      "inputs": [
-        {
-          "name": "df",
-          "node_id": "0b01b9b1-3564-41a4-9fd7-a47669a0e6a9",
-          "output_name": "default"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "default"
-        }
-      ]
-    },
-    {
-      "node_id": "5fbf9de7-7d59-4868-87fd-9a18b7a1f0f3",
+      "node_id": "32b234e4-ed2c-4551-9216-90eab551f7f0",
       "type": "SOURCE",
       "operator": "sagemaker.s3_source_0.1",
       "parameters": {
         "dataset_definition": {
           "__typename": "S3CreateDatasetDefinitionOutput",
           "datasetSourceType": "S3",
-          "name": "weather.parquet.gzip",
+          "name": "vehicle_registration.parquet.gzip",
           "description": null,
           "s3ExecutionContext": {
             "__typename": "S3ExecutionContext",
-            "s3Uri": "s3://sagemaker-studio-574641942871-ho0wjd2rwz/Cleaned Data/weather.parquet.gzip",
+            "s3Uri": "s3://sagemaker-us-east-1-651000550833/Clean_Data/vehicle_registration.parquet.gzip",
             "s3ContentType": "parquet",
             "s3HasHeader": true,
             "s3FieldDelimiter": ",",
@@ -123,25 +96,22 @@
       ]
     },
     {
-      "node_id": "47ca1efe-50e1-419e-8195-eafe5e4f2642",
+      "node_id": "4e361428-604f-43cb-a090-5d54d99ad7ad",
       "type": "TRANSFORM",
       "operator": "sagemaker.spark.infer_and_cast_type_0.1",
       "parameters": {},
       "trained_parameters": {
         "schema": {
-          "location": "string",
+          "Fuel": "string",
           "Year": "long",
-          "Month": "long",
-          "Low": "long",
-          "High": "long",
-          "AvgHigh": "float",
-          "AvgLow": "float"
+          "ZIP": "long",
+          "#_vehicles": "long"
         }
       },
       "inputs": [
         {
           "name": "default",
-          "node_id": "5fbf9de7-7d59-4868-87fd-9a18b7a1f0f3",
+          "node_id": "32b234e4-ed2c-4551-9216-90eab551f7f0",
           "output_name": "default"
         }
       ],
@@ -152,15 +122,40 @@
       ]
     },
     {
-      "node_id": "ddc0eee7-5fbc-4164-b658-93a1bf1a329d",
+      "node_id": "6b665194-2666-4338-b40d-c62ca97c131f",
+      "type": "TRANSFORM",
+      "operator": "sagemaker.spark.manage_columns_0.1",
+      "parameters": {
+        "operator": "Drop column",
+        "drop_column_parameters": {
+          "column_to_drop": [
+            "MOE"
+          ]
+        }
+      },
+      "inputs": [
+        {
+          "name": "df",
+          "node_id": "aa41c53e-62be-4586-a734-428a20cdc316",
+          "output_name": "default"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "default"
+        }
+      ]
+    },
+    {
+      "node_id": "37044a22-c771-4570-b67a-518a7f293811",
       "type": "TRANSFORM",
       "operator": "sagemaker.spark.join_multi_keys_0.1",
-      "name": "census_&_weather",
+      "name": "Vehicles_&_Pop",
       "parameters": {
         "join_keys": [
           {
-            "left": "weather_station",
-            "right": "location"
+            "left": "Zip",
+            "right": "ZIP"
           },
           {
             "left": "Year",
@@ -172,12 +167,12 @@
       "inputs": [
         {
           "name": "df",
-          "node_id": "3fbdb656-6b6a-4557-8b87-772cc9fdec90",
+          "node_id": "6b665194-2666-4338-b40d-c62ca97c131f",
           "output_name": "default"
         },
         {
           "name": "df",
-          "node_id": "47ca1efe-50e1-419e-8195-eafe5e4f2642",
+          "node_id": "4e361428-604f-43cb-a090-5d54d99ad7ad",
           "output_name": "default"
         }
       ],
@@ -188,7 +183,7 @@
       ]
     },
     {
-      "node_id": "2d5fd72c-0b06-46ed-b069-f4d5ed85e8b9",
+      "node_id": "5f31eb71-47d5-4bcf-8929-1dbab26fc50d",
       "type": "SOURCE",
       "operator": "sagemaker.s3_source_0.1",
       "parameters": {
@@ -199,7 +194,7 @@
           "description": null,
           "s3ExecutionContext": {
             "__typename": "S3ExecutionContext",
-            "s3Uri": "s3://sagemaker-studio-574641942871-ho0wjd2rwz/Cleaned Data/sdge.parquet.gzip",
+            "s3Uri": "s3://sagemaker-us-east-1-651000550833/Clean_Data/sdge.parquet.gzip",
             "s3ContentType": "parquet",
             "s3HasHeader": true,
             "s3FieldDelimiter": ",",
@@ -220,7 +215,7 @@
       ]
     },
     {
-      "node_id": "0078b584-a48c-43ed-8290-23e977e86a84",
+      "node_id": "8cb85d9b-e014-4f2c-a608-4f018ced7154",
       "type": "TRANSFORM",
       "operator": "sagemaker.spark.infer_and_cast_type_0.1",
       "parameters": {},
@@ -234,14 +229,13 @@
           "AverageTherms": "long",
           "TotalCustomers_elect": "long",
           "TotalkWh": "long",
-          "AveragekWh": "long",
-          "__index_level_0__": "long"
+          "AveragekWh": "long"
         }
       },
       "inputs": [
         {
           "name": "default",
-          "node_id": "2d5fd72c-0b06-46ed-b069-f4d5ed85e8b9",
+          "node_id": "5f31eb71-47d5-4bcf-8929-1dbab26fc50d",
           "output_name": "default"
         }
       ],
@@ -252,22 +246,21 @@
       ]
     },
     {
-      "node_id": "dd924965-c881-4ec9-a36f-b662602070a6",
+      "node_id": "3a09a41c-1e62-4c34-bf8c-8aab18d5e63f",
       "type": "TRANSFORM",
       "operator": "sagemaker.spark.manage_columns_0.1",
       "parameters": {
         "operator": "Drop column",
         "drop_column_parameters": {
           "column_to_drop": [
-            "__index_level_0__",
-            "AverageTherms"
+            "AveragekWh"
           ]
         }
       },
       "inputs": [
         {
           "name": "df",
-          "node_id": "0078b584-a48c-43ed-8290-23e977e86a84",
+          "node_id": "8cb85d9b-e014-4f2c-a608-4f018ced7154",
           "output_name": "default"
         }
       ],
@@ -278,15 +271,138 @@
       ]
     },
     {
-      "node_id": "424b809d-879c-4c44-9d90-94e14fb30716",
+      "node_id": "27845b5c-5fd6-42c5-91fc-a5034c25f19a",
       "type": "TRANSFORM",
       "operator": "sagemaker.spark.join_multi_keys_0.1",
-      "name": "great_gathering",
+      "name": "Census_CarReg_SDGE",
       "parameters": {
         "join_keys": [
           {
             "left": "ZipCode",
             "right": "Zip"
+          },
+          {
+            "left": "Year",
+            "right": "Year"
+          }
+        ],
+        "join_type": "inner"
+      },
+      "inputs": [
+        {
+          "name": "df",
+          "node_id": "3a09a41c-1e62-4c34-bf8c-8aab18d5e63f",
+          "output_name": "default"
+        },
+        {
+          "name": "df",
+          "node_id": "37044a22-c771-4570-b67a-518a7f293811",
+          "output_name": "default"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "default"
+        }
+      ]
+    },
+    {
+      "node_id": "ba776245-d71b-468e-be20-452aa64a0a09",
+      "type": "SOURCE",
+      "operator": "sagemaker.s3_source_0.1",
+      "parameters": {
+        "dataset_definition": {
+          "__typename": "S3CreateDatasetDefinitionOutput",
+          "datasetSourceType": "S3",
+          "name": "weather.parquet.gzip",
+          "description": null,
+          "s3ExecutionContext": {
+            "__typename": "S3ExecutionContext",
+            "s3Uri": "s3://sagemaker-us-east-1-651000550833/Clean_Data/weather.parquet.gzip",
+            "s3ContentType": "parquet",
+            "s3HasHeader": true,
+            "s3FieldDelimiter": ",",
+            "s3DirIncludesNested": false,
+            "s3AddsFilenameColumn": false
+          }
+        }
+      },
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "default",
+          "sampling": {
+            "sampling_method": "sample_by_limit",
+            "limit_rows": 50000
+          }
+        }
+      ]
+    },
+    {
+      "node_id": "9dabf850-26fe-4a5e-9c09-0c0a0a89ed4b",
+      "type": "TRANSFORM",
+      "operator": "sagemaker.spark.infer_and_cast_type_0.1",
+      "parameters": {},
+      "trained_parameters": {
+        "schema": {
+          "location": "string",
+          "Year": "long",
+          "Month": "long",
+          "Low": "long",
+          "High": "long",
+          "AvgHigh": "float",
+          "AvgLow": "float",
+          "Full_date": "datetime"
+        }
+      },
+      "inputs": [
+        {
+          "name": "default",
+          "node_id": "ba776245-d71b-468e-be20-452aa64a0a09",
+          "output_name": "default"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "default"
+        }
+      ]
+    },
+    {
+      "node_id": "3ad2a709-e414-44bd-bce1-1576b67d4f5d",
+      "type": "TRANSFORM",
+      "operator": "sagemaker.spark.manage_columns_0.1",
+      "parameters": {
+        "operator": "Drop column",
+        "drop_column_parameters": {
+          "column_to_drop": [
+            "Full_date"
+          ]
+        }
+      },
+      "inputs": [
+        {
+          "name": "df",
+          "node_id": "9dabf850-26fe-4a5e-9c09-0c0a0a89ed4b",
+          "output_name": "default"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "default"
+        }
+      ]
+    },
+    {
+      "node_id": "0fdebf07-9285-48cb-bf32-21a91dc25915",
+      "type": "TRANSFORM",
+      "operator": "sagemaker.spark.join_multi_keys_0.1",
+      "name": "Great_Combine",
+      "parameters": {
+        "join_keys": [
+          {
+            "left": "location",
+            "right": "weather_station"
           },
           {
             "left": "Year",
@@ -302,12 +418,12 @@
       "inputs": [
         {
           "name": "df",
-          "node_id": "dd924965-c881-4ec9-a36f-b662602070a6",
+          "node_id": "3ad2a709-e414-44bd-bce1-1576b67d4f5d",
           "output_name": "default"
         },
         {
           "name": "df",
-          "node_id": "ddc0eee7-5fbc-4164-b658-93a1bf1a329d",
+          "node_id": "27845b5c-5fd6-42c5-91fc-a5034c25f19a",
           "output_name": "default"
         }
       ],
@@ -318,17 +434,49 @@
       ]
     },
     {
-      "node_id": "2a874864-610f-4b3f-8fd5-b40be38012bf",
-      "type": "VISUALIZATION",
-      "operator": "sagemaker.visualizations.quick_model_0.1",
+      "node_id": "dd53ab54-8410-4d8c-9e49-f50497e10859",
+      "type": "TRANSFORM",
+      "operator": "sagemaker.spark.manage_columns_0.1",
       "parameters": {
-        "name": "Baseline",
-        "label": "TotalTherms"
+        "operator": "Drop column",
+        "drop_column_parameters": {
+          "column_to_drop": [
+            "location",
+            "Month",
+            "Year",
+            "ZipCode"
+          ]
+        }
       },
       "inputs": [
         {
           "name": "df",
-          "node_id": "424b809d-879c-4c44-9d90-94e14fb30716",
+          "node_id": "0fdebf07-9285-48cb-bf32-21a91dc25915",
+          "output_name": "default"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "default"
+        }
+      ]
+    },
+    {
+      "node_id": "0b68c2b2-7754-4417-8d62-796c1820956f",
+      "type": "TRANSFORM",
+      "operator": "sagemaker.spark.manage_columns_0.1",
+      "parameters": {
+        "operator": "Rename column",
+        "rename_column_parameters": {
+          "input_column": "Est",
+          "new_name": "Est_Pop"
+        },
+        "drop_column_parameters": {}
+      },
+      "inputs": [
+        {
+          "name": "df",
+          "node_id": "dd53ab54-8410-4d8c-9e49-f50497e10859",
           "output_name": "default"
         }
       ],

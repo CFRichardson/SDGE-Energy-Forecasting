@@ -1,0 +1,3 @@
+1) Ensure both Zip Code Ground Truth & Zip Code Per Location has been uploaded into Clean_Data
+2) Run Ingestion Notebook then Master_Notebook to complete Data Ingestion and Data Preperation.  
+3) Run Baseline.flow to combine prepped data for training.
