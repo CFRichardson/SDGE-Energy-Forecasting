@@ -1,7 +1,7 @@
 # ADS508_Project
 ---------------------------
 
-This project is a part of the ADS-508 course in the Applied Data Science Program at the University of San Diego.  This project explores the relationship of San Diego's demand for electricity and gas resources in relationship to variables such as weather patterns, population density, and vehicle registration.
+This project is a part of the ADS-508 course in the Applied Data Science Program at the University of San Diego.  This project explores the relationship for the county of San Diego's demand for electricity and gas resources in relationship to variables such as weather patterns, population density, and vehicle registration.
 
 -- Project Status: Active
 
@@ -77,7 +77,7 @@ Data was gathered via the following links:
   * Census Data
     * https://data.census.gov/
 
-  * San Diego Official Zip Code List
+  * San Diego County Official Zip Code List
     * https://www.sdcourt.ca.gov/sdcourt/familyandchildren2/wheretofile/zipcodedirectory
 
   * SDGE's Energy Data Request Program
