@@ -71,20 +71,20 @@ We would like to thank Census.Gov, SDGE, AFDC.Energy.Gov, Weather.Gov, and the S
 Data was gathered via the following links:
 
 
-    * California Vehicle Registration via AFDC (Alternative Fuels Data Center)
-      * https://afdc.energy.gov/data/
+  * California Vehicle Registration via AFDC (Alternative Fuels Data Center)
+    * https://afdc.energy.gov/data/
 
-    * Census Data
-      * https://data.census.gov/
+  * Census Data
+    * https://data.census.gov/
 
-    * San Diego Official Zip Code List
-      * https://www.sdcourt.ca.gov/sdcourt/familyandchildren2/wheretofile/zipcodedirectory
+  * San Diego Official Zip Code List
+    * https://www.sdcourt.ca.gov/sdcourt/familyandchildren2/wheretofile/zipcodedirectory
 
-    * SDGE's Energy Data Request Program
-      * https://energydata.sdge.com/
+  * SDGE's Energy Data Request Program
+    * https://energydata.sdge.com/
 
-    * San Diego Weather
-      *  https://www.weather.gov/sgx/cliplot  
+  * San Diego Weather
+    *  https://www.weather.gov/sgx/cliplot  
 
 
 
