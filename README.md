@@ -3,13 +3,17 @@
 
 This project is a part of the ADS-508 course in the Applied Data Science Program at the University of San Diego.  This project explores the relationship for the county of San Diego's demand for electricity and gas resources in relationship to variables such as weather patterns, population density, and vehicle registration.
 
+[Main Work Book pdf](https://github.com/CFRichardson/SDGE-Energy-Forecasting/blob/main/Ingestion_DataPrep_EDA.pdf) via concatenation of individual notebooks utilizing [nbmerge](https://pypi.org/project/nbmerge/).
+
 -- Project Status: Active
 
 # Table Of Contents
 --------------
 - [Contributers](#contributers)
 - [Objective](#objective)
-    - [Methods Utilized](#methods-utilized)
+  - [Methods Utilized](#methods-utilized)
+- [Installation](#installation)
+  - [Dependencies](#dependencies-utilized)
 - [Acknowledgements](#acknowledgements)
     - [Resource](#resource)
 
@@ -20,37 +24,6 @@ This project is a part of the ADS-508 course in the Applied Data Science Program
     * :email: (christopherr@sandiego.edu)
 
 
-# Installation
----------------------------
-
-### Dependencies:
-
-This repo utilizes the following packages:
-
-    1. boto3
-    2. datetime
-    3. json
-    4. math
-    5. matplotlib
-    6. numpy
-    7. pandas
-    8. plotly
-    9. random
-    10. re
-    11. request
-    12. sagemaker
-    13. seaborn
-    14. splinter
-    15. time
-
-
-To clone this repository onto your device, use the commands below:
-
-	1. git init
-	2. git clone https://github.com/CFRichardson/SDGE-Energy-Forecasting
-
-
-
 # Objective
 ---------------------------
 The goal of this study is to predict the amount of needed resources (electricity and gas) for an upcoming month, to ensure SDGE systems are able to meet resource demands.
@@ -59,6 +32,36 @@ The goal of this study is to predict the amount of needed resources (electricity
   * Discretization
   * Linear Regression
   * KNN
+
+
+  # Installation
+  ---------------------------
+
+  ### Dependencies:
+
+  This repo utilizes the following packages:
+
+      1. boto3
+      2. datetime
+      3. json
+      4. math
+      5. matplotlib
+      6. numpy
+      7. pandas
+      8. plotly
+      9. random
+      10. re
+      11. request
+      12. sagemaker
+      13. seaborn
+      14. splinter
+      15. time
+
+
+  To clone this repository onto your device, use the commands below:
+
+  	1. git init
+  	2. git clone https://github.com/CFRichardson/SDGE-Energy-Forecasting
 
 
 
